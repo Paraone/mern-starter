@@ -9,11 +9,15 @@
     "prefer-arrow-callback": false
   },
   "rules": {
+    "semicolon": [
+      true,
+      "never",
+    ],
     "only-arrow-functions": false,
     "prefer-arrow-callback": false,
     "import-name": false,
     "jsx-boolean-value": ["never"],
-    "variable-name": ["allow-pascal-case"],
+    "variable-name": [true, "allow-pascal-case"],
     "space-before-function-paren": [true, "never"]
   }
 }

@@ -1,28 +1,28 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 
 // Component imports
-import Navigation from './scenes/Navigation';
+import Navigation from './scenes/Navigation'
 
-import Login from './scenes/Auth/scenes/Login';
-import Register from './scenes/Auth/scenes/Register';
-import RequireAuth from './scenes/Auth/services/RequireAuth';
+import Login from './scenes/Auth/scenes/Login'
+import Register from './scenes/Auth/scenes/Register'
+import RequireAuth from './scenes/Auth/services/RequireAuth'
 
-import NotFound from './components/NotFound';
+import NotFound from './components/NotFound'
 
-import Todo from './scenes/Todo';
-import Todos from './scenes/Todos';
+import Todo from './scenes/Todo'
+import Todos from './scenes/Todos'
 
-import Home from './scenes/Home';
+import Home from './scenes/Home'
 
-import './styles/styles.scss';
+import './styles/styles.scss'
 
 interface AppProps {
-  history: any;
-  location: any;
-  match: any;
+  history: any
+  location: any
+  match: any
 }
 
 const App: React.SFC<AppProps> = () => (
@@ -42,13 +42,13 @@ const App: React.SFC<AppProps> = () => (
       <Route component={NotFound} />
     </Switch>
   </div>
-);
+)
 
 function mapStateToProps(state: any) {
   return {
     auth: state.auth,
     location: state.router.location,
-  };
+  }
 }
 
-export default connect(mapStateToProps)(withRouter(App));
+export default connect(mapStateToProps)(withRouter(App))
