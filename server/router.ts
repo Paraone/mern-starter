@@ -1,43 +1,43 @@
-import { Router } from 'express';
-import passport from 'passport';
+import { Router } from 'express'
+import passport from 'passport'
 
-import * as AuthenticationController from './controllers/auth';
-import * as TodoController from './controllers/todos';
-import * as UserController from './controllers/users';
+import * as AuthenticationController from './controllers/auth'
+import * as TodoController from './controllers/todos'
+import * as UserController from './controllers/users'
 
 // Middleware to require login/auth
-const requireAuth = passport.authenticate('jwt', { session: false });
+const requireAuth = passport.authenticate('jwt', { session: false })
 
-export default function routes(app: any) {
+export default function routes (app: any) {
   // Initializing route groups
-  const apiRoutes = Router();
-  const authRoutes = Router();
+  const apiRoutes = Router()
+  const authRoutes = Router()
 
   /**
    * Auth routes
    */
   // Set auth routes as subgroup/middleware to apiRoutes
-  apiRoutes.use('/auth', authRoutes);
+  apiRoutes.use('/auth', authRoutes)
 
   // Registration route
-  authRoutes.post('/register', AuthenticationController.register);
+  authRoutes.post('/register', AuthenticationController.register)
 
   // Login route
-  authRoutes.post('/login', AuthenticationController.login);
+  authRoutes.post('/login', AuthenticationController.login)
 
   /**
    * Todo routes
    */
-  apiRoutes.get('/todos', requireAuth, TodoController.todos);
-  apiRoutes.get('/todos/:todoId', requireAuth, TodoController.todo);
-  apiRoutes.post('/todos/create', requireAuth, TodoController.createTodo);
-  apiRoutes.delete('/todos/:todoId', requireAuth, TodoController.deleteTodo);
+  apiRoutes.get('/todos', requireAuth, TodoController.todos)
+  apiRoutes.get('/todos/:todoId', requireAuth, TodoController.todo)
+  apiRoutes.post('/todos/create', requireAuth, TodoController.createTodo)
+  apiRoutes.delete('/todos/:todoId', requireAuth, TodoController.deleteTodo)
 
   /**
    * Profile routes
    */
-  apiRoutes.get('/me', requireAuth, UserController.getMe);
+  apiRoutes.get('/me', requireAuth, UserController.getMe)
 
   // Set url for API group routes
-  app.use('/api', apiRoutes);
+  app.use('/api', apiRoutes)
 }

@@ -25,7 +25,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
     alias: {
-      Boilerplate: path.resolve(__dirname, 'client'),
+      "@": path.resolve(__dirname, 'client'),
     }
   },
 

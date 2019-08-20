@@ -1,61 +1,61 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
+import React from 'react'
+import { connect } from 'react-redux'
+import { Field, reduxForm, InjectedFormProps } from 'redux-form'
 
-import { loginUser, LoginInfo } from "Boilerplate/modules/auth";
-import Toast from 'Boilerplate/components/Toast';
-import FieldComponent from 'Boilerplate/components/Fields/Field';
-import PasswordFieldComponent from 'Boilerplate/components/Fields/PasswordField';
+import { loginUser, LoginInfo } from '@/modules/auth'
+import Toast from '@/components/Toast'
+import FieldComponent from '@/components/Fields/Field'
+import PasswordFieldComponent from '@/components/Fields/PasswordField'
 
 const required = (value: any) => (value ? undefined : 'Required')
 
 const form = reduxForm({
-  form: "login"
-});
+  form: 'login'
+})
 
 interface LoginProps {
-  errorMessage: string;
-  loginUser: (_: LoginInfo) => any;
-  handleSubmit: (_: any) => any;
+  errorMessage: string
+  loginUser: (_: LoginInfo) => any
+  handleSubmit: (_: any) => any
 }
 
-const Login: React.SFC<LoginProps & InjectedFormProps> = ({ errorMessage, handleSubmit, loginUser }) => {
+const Login: (React.FunctionComponent<LoginProps & InjectedFormProps>) = ({ errorMessage, handleSubmit, loginUser }) => {
   return (
-    <div className="container">
-      <h3>Login to Boilerplate</h3>
+    <div className='container'>
+      <h3>Login to @</h3>
       <form onSubmit={handleSubmit((loginInfo: LoginInfo) => loginUser(loginInfo))}>
-        {errorMessage && <Toast text={errorMessage} type="error" />}
-        <label htmlFor="username">Username</label>
+        {errorMessage && <Toast text={errorMessage} type='error' />}
+        <label htmlFor='username'>Username</label>
         <Field
-          id="username"
-          name="username"
+          id='username'
+          name='username'
           component={FieldComponent}
-          type="text"
+          type='text'
           validate={required}
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor='password'>Password</label>
         <Field
-          id="password"
-          name="password"
+          id='password'
+          name='password'
           component={PasswordFieldComponent}
-          type="password"
+          type='password'
           validate={required}
         />
-        <button type="submit" className="btn">
+        <button type='submit' className='btn'>
           Login
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-function mapStateToProps(state: any) {
+function mapStateToProps (state: any) {
   return {
     errorMessage: state.auth.error,
     message: state.auth.message
-  };
+  }
 }
 
 export default connect(
   mapStateToProps, { loginUser }
-)(form(Login));
+)(form(Login))

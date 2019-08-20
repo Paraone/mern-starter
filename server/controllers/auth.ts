@@ -1,129 +1,129 @@
-import passport from 'passport';
-import jwt from 'jsonwebtoken';
-import { Request, Response } from 'express';
+import passport from 'passport'
+import jwt from 'jsonwebtoken'
+import { Request, Response } from 'express'
 
-import { User } from 'Types';
-import UserModel from '../models/users';
+import { User } from 'Types'
+import UserModel from '../models/users'
 
-import config from '../config/config';
+import config from '../config/config'
 
 /**
  * Generates the JSON web token
  */
-function generateToken(user: { username: string, _id: string }) {
+function generateToken (user: { username: string, _id: string }) {
   return jwt.sign(user, config.secret, {
-    expiresIn: 604800, // in seconds, 1 week
-  });
+    expiresIn: 604800 // in seconds, 1 week
+  })
 }
 
 // Set user info from request
-function setUserInfo(user: User) {
+function setUserInfo (user: User) {
   return {
     username: user.username,
-    _id: user._id,
-  };
+    _id: user._id
+  }
 }
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
+passport.serializeUser((user, done) => {
+  done(null, user)
+})
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
+passport.deserializeUser((user, done) => {
+  done(null, user)
+})
 
 /**
  * Utility function to grab the user id from auth headers
  */
-export function getUserIdFromHeaders(headers: any) {
+export function getUserIdFromHeaders (headers: any) {
   if (headers && headers.Authorization) {
     // Get auth header and remove 'JWT' from front
-    const authorization = headers.Authorization.split(' ')[1];
+    const authorization = headers.Authorization.split(' ')[1]
 
-    let decoded: any;
+    let decoded: any
     try {
-      decoded = jwt.verify(authorization, config.secret);
+      decoded = jwt.verify(authorization, config.secret)
     } catch (e) {
-      console.error('Could not get a userId from this header');
-      return false;
+      console.error('Could not get a userId from this header')
+      return false
     }
-    return decoded._id;
+    return decoded._id
   }
-  console.error('getUserIdFromHeaders: Malformed passed in');
+  console.error('getUserIdFromHeaders: Malformed passed in')
 }
 
 // Login Route
-export function login(req: Request, res: Response) {
-  const { username, password } = req.body;
+export function login (req: Request, res: Response) {
+  const { username, password } = req.body
 
   UserModel.findOne({ username }, (err: any, user: User) => {
     if (err) {
-      return res.status(500).send('An unexpected error occurred');
+      return res.status(500).send('An unexpected error occurred')
     }
 
     if (!user) {
-      return res.status(401).send('Your login details could not be verified. Please try again.');
+      return res.status(401).send('Your login details could not be verified. Please try again.')
     }
 
     user.comparePassword(password, (comparePasswordErr: any, isMatch: boolean) => {
       if (comparePasswordErr || !isMatch) {
-        res.status(401).send('Your login details could not be verified. Please try again.');
+        res.status(401).send('Your login details could not be verified. Please try again.')
       }
 
-      const userInfo = setUserInfo(user);
+      const userInfo = setUserInfo(user)
       res.status(200).json({
         token: `JWT ${generateToken(userInfo)}`,
-        user: userInfo,
-      });
-    });
-  });
+        user: userInfo
+      })
+    })
+  })
 }
 
 // Registration Route
-export function register(req: Request, res: Response, next: any) {
-  const { username, password } = req.body;
+export function register (req: Request, res: Response, next: any) {
+  const { username, password } = req.body
 
   // Return error if full name not provided
   if (!username) {
-    return res.status(422).send({ error: 'You must enter a username.' });
+    return res.status(422).send({ error: 'You must enter a username.' })
   }
 
   // Return error if no password provided
   if (!password) {
-    return res.status(422).send({ error: 'You must enter a password.' });
+    return res.status(422).send({ error: 'You must enter a password.' })
   }
 
-  UserModel.findOne({ username }, function(err, existingUser) {
+  UserModel.findOne({ username }, (err, existingUser) => {
     if (err) {
-      return next(err);
+      return next(err)
     }
 
     // If user is not unique, return error
     if (existingUser) {
       return res
         .status(422)
-        .send({ error: 'That username is already in use.' });
+        .send({ error: 'That username is already in use.' })
     }
 
     // If username is unique and password was provided, create account
     const user = new UserModel({
       username,
-      password,
-    });
+      password
+    })
 
     user.save((err: any, user: any) => {
       if (err) {
-        console.error(err);
-        return res.status(500).send({ error: 'An unexpected error occurred' });
+        console.error(err)
+        return res.status(500).send({ error: 'An unexpected error occurred' })
       }
 
       // Respond with JWT if user was created
-      const userInfo = setUserInfo(user);
+      const userInfo = setUserInfo(user)
 
       res.status(201).json({
         token: `JWT ${generateToken(userInfo)}`,
-        user: userInfo,
-      });
-    });
-  });
+        user: userInfo
+      })
+    })
+  })
 }

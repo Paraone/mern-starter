@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
-const Home: React.SFC = () => {
+const Home: React.FunctionComponent = () => {
   return (
-    <div className="container">
+    <div className='container'>
       <h1>TypeScript React FullStack Boilerplate</h1>
       <a
-        href="https://github.com/liawesomesaucer/typescript-react-fullstack-boilerplate"
-        target="_blank"
+        href='https://github.com/liawesomesaucer/typescript-react-fullstack-boilerplate'
+        target='_blank'
       >
         Documentation
       </a>
@@ -24,14 +24,14 @@ const Home: React.SFC = () => {
       <p>
         Read the&nbsp;
         <a
-          href="https://github.com/liawesomesaucer/typescript-react-fullstack-boilerplate"
-          target="_blank"
+          href='https://github.com/liawesomesaucer/typescript-react-fullstack-boilerplate'
+          target='_blank'
         >
           Docs
         </a>
       </p>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

@@ -5,37 +5,37 @@
  *    $ # In the root directory of the project
  *    $ ./server/scripts/seeddb.ts
  */
-import Todo from '../models/todos';
-import User from '../models/users';
+import Todo from '../models/todos'
+import User from '../models/users'
 
 const seedTodos = [
   {
     author: 'vincent',
     name: 'Build some unicorns',
-    description: 'Do it!!!@!@!@',
+    description: 'Do it!!!@!@!@'
   },
   {
     author: 'vincent',
     name: 'Set up projects',
-    description: 'It\'s time to start working',
-  },
-].map(t => new Todo(t));
-
-seedTodos.forEach(t => t.save((err) => {
-  if (err) {
-    console.error(err);
+    description: 'It\'s time to start working'
   }
-}));
+].map(t => new Todo(t))
+
+seedTodos.forEach(t => t.save((err: any) => {
+  if (err) {
+    console.error(err)
+  }
+}))
 
 const seedUsers = [
   {
     username: 'vincent',
-    password: 'password!!',
-  },
-].map(u => new User(u));
-
-seedUsers.forEach(u => u.save((err) => {
-  if (err) {
-    console.error(err);
+    password: 'password!!'
   }
-}));
+].map(u => new User(u))
+
+seedUsers.forEach(u => u.save((err: any) => {
+  if (err) {
+    console.error(err)
+  }
+}))

@@ -4,20 +4,20 @@ import { withRouter } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 
 // Component imports
-import Navigation from './scenes/Navigation'
+import Navigation from '@/scenes/Navigation'
 
-import Login from './scenes/Auth/scenes/Login'
-import Register from './scenes/Auth/scenes/Register'
-import RequireAuth from './scenes/Auth/services/RequireAuth'
+import Login from '@/scenes/Auth/scenes/Login'
+import Register from '@/scenes/Auth/scenes/Register'
+import RequireAuth from '@/scenes/Auth/services/RequireAuth'
 
-import NotFound from './components/NotFound'
+import NotFound from '@/components/NotFound'
 
-import Todo from './scenes/Todo'
-import Todos from './scenes/Todos'
+import Todo from '@/scenes/Todo'
+import Todos from '@/scenes/Todos'
 
-import Home from './scenes/Home'
+import Home from '@/scenes/Home'
 
-import './styles/styles.scss'
+import '@/styles/styles.scss'
 
 interface AppProps {
   history: any
@@ -25,29 +25,29 @@ interface AppProps {
   match: any
 }
 
-const App: React.SFC<AppProps> = () => (
+const App: React.FunctionComponent<AppProps> = () => (
   <div>
     <Navigation />
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path='/' component={Home} />
 
-      <Route exact path="/todos" component={Todos} />
+      <Route exact path='/todos' component={Todos} />
 
       {/* Pages requiring a user to be logged in can be wrapped as such */}
-      <Route exact path="/todos/:todoId" component={RequireAuth(Todo)} />
+      <Route exact path='/todos/:todoId' component={RequireAuth(Todo)} />
 
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
+      <Route path='/login' component={Login} />
+      <Route path='/register' component={Register} />
 
       <Route component={NotFound} />
     </Switch>
   </div>
 )
 
-function mapStateToProps(state: any) {
+function mapStateToProps (state: any) {
   return {
     auth: state.auth,
-    location: state.router.location,
+    location: state.router.location
   }
 }
 

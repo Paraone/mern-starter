@@ -46,7 +46,7 @@ module.exports = {
      * Feel free to configure the name as you like
      */
     alias: {
-      Boilerplate: path.resolve(__dirname, 'client'),
+      "@": path.resolve(__dirname, 'client'),
     }
   },
 

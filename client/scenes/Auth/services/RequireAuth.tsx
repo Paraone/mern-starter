@@ -14,24 +14,24 @@ interface AuthenticationProps {
  */
 export default (ComposedComponent: any) => {
   class Authentication extends React.Component<AuthenticationProps & RouteComponentProps, {}> {
-    componentWillMount() {
+    componentWillMount () {
       if (!this.props.authenticated) {
         this.props.history.push('/login')
       }
     }
 
-    componentWillUpdate(nextProps: AuthenticationProps) {
+    componentWillUpdate (nextProps: AuthenticationProps) {
       if (!nextProps.authenticated) {
         this.props.history.push('/login')
       }
     }
 
-    render() {
+    render () {
       return <ComposedComponent {...this.props} />
     }
   }
 
-  function mapStateToProps(state: any) {
+  function mapStateToProps (state: any) {
     return { authenticated: state.auth.authenticated }
   }
 

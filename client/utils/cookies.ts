@@ -1,5 +1,5 @@
-const Cookies = require('universal-cookie');
+const Cookies = require('universal-cookie')
 
-const cookies = new Cookies();
+const cookies = new Cookies()
 
-export default cookies;
+export default cookies

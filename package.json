@@ -14,10 +14,11 @@
     "lint": "node node_modules/.bin/tslint -c tslint.json --project tsconfig.json 'client/**/*.ts?(x)' 'server/**/*.ts?(x)'",
     "start": "npm run clean && npm run build && npm run prod",
     "dev": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon",
-    "prod": "cross-env NODE_ENV=production ts-node index.ts"
+    "prod": "cross-env NODE_ENV=production ts-node index.ts",
+    "watch-ts": "tsc -w"
   },
   "main": "index.ts",
-  "author": "Vincent Liaw <vincentcliaw@gmail.com>",
+  "author": "Andrew McNeel <amcneel18@gmail.com>",
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/bcrypt-nodejs": "^0.0.30",

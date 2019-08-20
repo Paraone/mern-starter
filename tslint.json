@@ -9,15 +9,20 @@
     "prefer-arrow-callback": false
   },
   "rules": {
-    "semicolon": [
-      true,
-      "never",
-    ],
+    "semicolon": [true, "never"],
     "only-arrow-functions": false,
     "prefer-arrow-callback": false,
     "import-name": false,
     "jsx-boolean-value": ["never"],
-    "variable-name": [true, "allow-pascal-case"],
-    "space-before-function-paren": [true, "never"]
+    "variable-name": [true, "allow-pascal-case", "allow-leading-underscore"],
+    "space-before-function-paren": true,
+    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "max-line-length": false,
+    "quotemark": [true, "single", "avoid-escape"],
+    "no-trailing-whitespace": true,
+    "indent": [true, "spaces"],
+    "no-var-keyword": true,
+    "jsx-no-multiline-js": false,
+    "ter-func-call-spacing": [false]
   }
 }

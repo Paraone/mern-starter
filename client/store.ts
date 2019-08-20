@@ -1,45 +1,45 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
-import thunk from 'redux-thunk';
-import createHistory from 'history/createBrowserHistory';
-import { logger } from 'redux-logger';
+import { createStore, applyMiddleware, compose } from 'redux'
+import { routerMiddleware } from 'react-router-redux'
+import thunk from 'redux-thunk'
+import createHistory from 'history/createBrowserHistory'
+import { logger } from 'redux-logger'
 
-import rootReducer from './reducers';
+import rootReducer from './reducers'
 
-export const history = createHistory();
+export const history = createHistory()
 
-const initialState = {};
-const enhancers = [];
+const initialState = {}
+const enhancers = []
 let middleware = [
   thunk,
-  routerMiddleware(history),
-];
+  routerMiddleware(history)
+]
 
 if (process.env.NODE_ENV !== 'production') {
-  middleware.push(logger);
+  middleware.push(logger)
 
-  const { devToolsExtension } = window as any;
+  const { devToolsExtension } = window as any
 
   if (typeof devToolsExtension === 'function') {
-    enhancers.push(devToolsExtension());
+    enhancers.push(devToolsExtension())
   }
 }
 
 // Remove undefined middleware
-middleware = middleware.filter(e =>  {
-  return typeof e === 'function';
-});
+middleware = middleware.filter((e) =>  {
+  return typeof e === 'function'
+})
 
 // Redux enhancers
 const composedEnhancers = compose(
   applyMiddleware(...middleware),
-  ...enhancers,
-);
+  ...enhancers
+)
 
 const store = createStore(
   rootReducer,
   initialState,
-  composedEnhancers,
-);
+  composedEnhancers
+)
 
-export default store;
+export default store

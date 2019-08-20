@@ -1,24 +1,24 @@
-import React from 'react';
+import React from 'react'
 
 interface FieldProps {
-  input: any;
-  meta: any;
+  input: any
+  meta: any
 }
 
-const PasswordField: React.SFC<FieldProps> = ({ input, meta }) => {
-  const { touched, error } = meta;
-  const inputClassName = (touched && error) ? 'error' : undefined;
+const PasswordField: React.FunctionComponent<FieldProps> = ({ input, meta }) => {
+  const { touched, error } = meta
+  const inputClassName = (touched && error) ? 'error' : undefined
 
   return (
-    <div className="input-group">
+    <div className='input-group'>
       <input
-        type="password"
+        type='password'
         {...input}
         className={inputClassName}
       />
-      {touched && error && <p className="input__error-msg">{error}</p>}
+      {touched && error && <p className='input__error-msg'>{error}</p>}
     </div>
-  );
-};
+  )
+}
 
-export default PasswordField;
+export default PasswordField
