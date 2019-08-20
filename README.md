@@ -1,6 +1,6 @@
 # Fullstack TypeScript React-Redux + Express + Passport JWT Auth Example
 
-**Note** Currently in progress. Functional, but a lot of lint warnings and no tests D:
+**Note** No tests :)
 
 A modern (and opinionated) full-stack example with TypeScript React (v16)+ Redux + React-Router, Express + Mongoose backend, featuring a todo list with authentication. Probably the basis of my projects from now on. Feel free to use.
 
@@ -24,7 +24,7 @@ Additional info about this configuration that you might want or want to change
 * React containers are organized in the Ember-like fashion proposed by [alexmngn](https://medium.com/@alexmngn) in his [article](https://medium.com/@alexmngn/how-to-better-organize-your-react-applications-2fd3ea1920f1). A summary as follows:
   * Containers are placed as the `index.js` elements in their respective folders inside `scenes`. Each container can then have its own utilities, services, components and nested scenes, allowing grouping based on feature rather than by root page/element
   * General components (buttons, form elements) are placed in the general `client/components` directory
-* Absolute imports are used - head to `webpack.config.dev.js` and look at `resolve.alias`. This allows you to import files from your project with paths like `Boilerplate/Components/FileName` rather than `../../../../Components/FileName`. Configure as you like.
+* Absolute imports are used - head to `webpack.config.dev.js` and look at `resolve.alias`. This allows you to import files from your project with paths like `@/Components/FileName` rather than `../../../../Components/FileName`. Configure as you like.
 * Forms use [redux-form](https://github.com/https://redux-form.com)
 * Note that in this simple Todo example, anyone can create or update todos as long as they are logged in
 
@@ -39,16 +39,16 @@ Additional info about this configuration that you might want or want to change
 
 Go ahead and run
 ```bash
-$ yarn start:dev
+$ yarn run dev
 ```
 
 To start devving!
 
 ## Development
 
-* `yarn start:dev` - to start local development server with nodemon and hot reloading.
+* `yarn run dev` - to start local development server with nodemon and hot reloading.
 <!-- * `yarn test` - to run unit tests. -->
 * `yarn lint` - to run linter.
 * `yarn build` - to build production files
-* `yarn start:prod` - to start the server in production mode
+* `yarn run prod` - to start the server in production mode
 * `yarn bs` - to build production files and start server in production mode (combination of above two steps).
