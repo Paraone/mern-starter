@@ -1,6 +1,7 @@
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import { Request, Response } from 'express'
+import bcrypt from 'bcrypt'
 
 import { User } from 'Types'
 import UserModel from '../models/users'
@@ -62,19 +63,20 @@ export function login (req: Request, res: Response) {
     }
 
     if (!user) {
-      return res.status(401).send('Your login details could not be verified. Please try again.')
+      return res.status(400).send('Your login details could not be verified. Please try again.')
     }
-
-    user.comparePassword(password, (comparePasswordErr: any, isMatch: boolean) => {
-      if (comparePasswordErr || !isMatch) {
-        res.status(401).send('Your login details could not be verified. Please try again.')
+    // tslint:disable-next-line
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err || !isMatch) {
+        console.log({ err })
+        return res.status(400).send('Your login details could not be verified. Please try again.')
       }
+    })
 
-      const userInfo = setUserInfo(user)
-      res.status(200).json({
-        token: `JWT ${generateToken(userInfo)}`,
-        user: userInfo
-      })
+    const userInfo = setUserInfo(user)
+    return res.status(200).json({
+      token: `JWT ${generateToken(userInfo)}`,
+      user: userInfo
     })
   })
 }
@@ -106,23 +108,32 @@ export function register (req: Request, res: Response, next: any) {
     }
 
     // If username is unique and password was provided, create account
-    const user = new UserModel({
-      username,
-      password
-    })
+    const SALT_FACTOR = 5;
+    bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
+      if (err) return console.log(err);
 
-    user.save((err: any, user: any) => {
-      if (err) {
-        console.error(err)
-        return res.status(500).send({ error: 'An unexpected error occurred' })
-      }
+      bcrypt.hash(password, salt, (err, hash) => {
+        if (err) return console.log(err)
 
-      // Respond with JWT if user was created
-      const userInfo = setUserInfo(user)
-
-      res.status(201).json({
-        token: `JWT ${generateToken(userInfo)}`,
-        user: userInfo
+        const user = new UserModel({
+          username,
+          password: hash
+        })
+    
+        user.save((err: any, user: any) => {
+          if (err) {
+            console.error(err)
+            return res.status(500).send({ error: 'An unexpected error occurred' })
+          }
+    
+          // Respond with JWT if user was created
+          const userInfo = setUserInfo(user)
+    
+          res.status(201).json({
+            token: `JWT ${generateToken(userInfo)}`,
+            user: userInfo
+          })
+        })
       })
     })
   })
