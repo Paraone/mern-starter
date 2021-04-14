@@ -1,10 +1,10 @@
 import React from 'react'
 import { Field, reduxForm, InjectedFormProps } from 'redux-form'
 import { connect } from 'react-redux'
-
-import FieldComponent from '@/components/Fields/Field'
-import { createTodo } from '@/modules/todos'
 import { Todo, User } from 'Types'
+
+import { Field as FieldComponent } from '@/components'
+import { createTodo } from '@/actions/Todos'
 
 const required = (value: any) => (value ? undefined : 'Required')
 
@@ -57,11 +57,17 @@ const TodoCreate: React.FunctionComponent<TodoCreateProps & InjectedFormProps> =
   )
 }
 
-function mapStateToProps (state: any) {
+const mapStateToProps = (state: any) => {
+  const { auth: {
+    error,
+    message,
+    user
+  } } = state;
+
   return {
-    errorMessage: state.auth.error,
-    message: state.auth.message,
-    user: state.auth.user
+    errorMessage: error,
+    message,
+    user
   }
 }
 

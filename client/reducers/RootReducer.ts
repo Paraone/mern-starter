@@ -2,13 +2,13 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { reducer as formReducer } from 'redux-form'
 
-import authReducer from '../modules/auth'
-import todoReducer from '../modules/todos'
+import userReducer from './UserReducer'
+import todoReducer from './TodosReducer'
 
 const rootReducer = combineReducers({
   router: routerReducer,
   form: formReducer,
-  auth: authReducer,
+  auth: userReducer,
   todos: todoReducer
 })
 

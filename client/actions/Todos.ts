@@ -2,39 +2,21 @@ import axios from 'axios'
 import { Dispatch } from 'redux'
 
 import { history } from '@/store'
-import cookies from '../../utils/cookies'
 
 // Types
-import { AuthTypes, errorHandler } from '../auth'
+import { errorHandler } from './User'
+import { AuthTypes, TodoTypes } from './ActionTypes'
 
-export const TODO_CREATE = 'todos/TODO_CREATE'
-export const TODO_LOAD = 'todos/TODO_LOAD'
-export const TODO_LOAD_ALL = 'todos/TODO_LOAD_ALL'
-export const TODO_DELETE = 'todos/TODO_DELETE'
+const { 
+  TODO_LOAD,
+  TODO_LOAD_ALL,
+  TODO_CREATE,
+  TODO_DELETE
+} = TodoTypes
+
+const { AUTH_ERROR } = AuthTypes
 
 const API_URL = '/api'
-
-// Reducer
-export default function (state = {}, action: any) {
-  switch (action.type) {
-    case TODO_LOAD:
-      return {
-        ...state,
-        todo: action.payload
-      }
-    case TODO_LOAD_ALL:
-      return {
-        ...state,
-        todos: action.payload
-      }
-    case TODO_CREATE:
-      return state
-    case TODO_DELETE:
-      return state
-    default:
-      return state
-  }
-}
 
 // Action creators
 /**
@@ -52,7 +34,7 @@ export function loadTodo (todoId: string) {
       })
     })
     .catch((error) => {
-      errorHandler(dispatch, error.response, AuthTypes.AUTH_ERROR)
+      errorHandler(dispatch, error.response, AUTH_ERROR)
     })
   }
 }
@@ -70,7 +52,7 @@ export function loadTodos () {
       })
     })
     .catch((error) => {
-      errorHandler(dispatch, error.response, AuthTypes.AUTH_ERROR)
+      errorHandler(dispatch, error.response, AUTH_ERROR)
     })
   }
 }
@@ -88,7 +70,7 @@ export function createTodo (data: any) {
       history.push(`/todos/${res.data._id}`)
     })
     .catch((error) => {
-      errorHandler(dispatch, error.response, AuthTypes.AUTH_ERROR)
+      errorHandler(dispatch, error.response, AUTH_ERROR)
     })
   }
 }
@@ -109,7 +91,7 @@ export function finishTodo (todoId: string) {
       history.push('/todos')
     })
     .catch((error) => {
-      errorHandler(dispatch, error.response, AuthTypes.AUTH_ERROR)
+      errorHandler(dispatch, error.response, AUTH_ERROR)
     })
   }
 }

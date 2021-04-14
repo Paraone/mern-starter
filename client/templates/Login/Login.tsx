@@ -2,29 +2,30 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm, InjectedFormProps } from 'redux-form'
 
-import { registerUser, RegisterInfo } from '@/modules/auth'
-import Toast from '@/components/Toast'
-
-import FieldComponent from '@/components/Fields/Field'
-import PasswordFieldComponent from '@/components/Fields/PasswordField'
+import { loginUser, LoginInfo } from '@/actions/User'
+import { 
+  Toast, 
+  Field as FieldComponent, 
+  PasswordField 
+} from '@/components'
 
 const required = (value: any) => (value ? undefined : 'Required')
 
 const form = reduxForm({
-  form: 'register'
+  form: 'login'
 })
 
-interface RegisterProps {
-  registerUser: (_: RegisterInfo) => any
-  handleSubmit: (_: any) => any
+interface LoginProps {
   errorMessage: string
+  loginUser: (_: LoginInfo) => any
+  handleSubmit: (_: any) => any
 }
 
-const Register: React.FunctionComponent<RegisterProps & InjectedFormProps> = ({ handleSubmit, registerUser, errorMessage }) => {
+const Login: (React.FunctionComponent<LoginProps & InjectedFormProps>) = ({ errorMessage, handleSubmit, loginUser }) => {
   return (
     <div className='container'>
-      <h3>Register for @</h3>
-      <form onSubmit={handleSubmit((registerInfo: RegisterInfo) => registerUser(registerInfo))}>
+      <h3>Login to @</h3>
+      <form onSubmit={handleSubmit((loginInfo: LoginInfo) => loginUser(loginInfo))}>
         {errorMessage && <Toast text={errorMessage} type='error' />}
         <label htmlFor='username'>Username</label>
         <Field
@@ -38,12 +39,12 @@ const Register: React.FunctionComponent<RegisterProps & InjectedFormProps> = ({ 
         <Field
           id='password'
           name='password'
-          component={PasswordFieldComponent}
+          component={PasswordField}
           type='password'
           validate={required}
         />
         <button type='submit' className='btn'>
-          Register
+          Login
         </button>
       </form>
     </div>
@@ -58,6 +59,5 @@ function mapStateToProps (state: any) {
 }
 
 export default connect(
-  mapStateToProps,
-  { registerUser }
-)(form(Register))
+  mapStateToProps, { loginUser }
+)(form(Login))
