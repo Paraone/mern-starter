@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import TodoCreate from './components/TodoCreate'
 import TodoItem from './components/TodoItem'
-import { loadTodos } from '../../modules/todos'
+import { loadTodos } from '@/actions/Todos'
 
 interface TodosProps {
   todos: []

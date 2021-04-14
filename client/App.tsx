@@ -4,18 +4,18 @@ import { withRouter } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 
 // Component imports
-import Navigation from '@/scenes/Navigation'
+import { Navigation } from '@/components'
 
-import Login from '@/scenes/Auth/scenes/Login'
-import Register from '@/scenes/Auth/scenes/Register'
-import RequireAuth from '@/scenes/Auth/services/RequireAuth'
+import { 
+  Todo, 
+  Todos,
+   Home,
+   Login,
+   Register,
+   NotFound
+} from '@/templates'
 
-import NotFound from '@/components/NotFound'
-
-import Todo from '@/scenes/Todo'
-import Todos from '@/scenes/Todos'
-
-import Home from '@/scenes/Home'
+import RequireAuth from '@/utils/RequireAuth'
 
 import '@/styles/styles.scss'
 

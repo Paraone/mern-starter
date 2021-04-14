@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-import * as authActions from '../../modules/auth'
+import * as authActions from '@/actions/User'
 
-import cookies from '../../utils/cookies'
+import cookies from '@/utils/cookies'
 
 interface NavigationProps {
   user: any

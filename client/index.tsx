@@ -11,7 +11,7 @@ import cookies from '@/utils/cookies'
 
 import App from '@/App'
 
-import { AuthTypes } from '@/modules/auth'
+import { AuthTypes } from '@/actions/ActionTypes'
 
 // Load JWT tokens
 const token = cookies.get('token')
